@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-bar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-bar h1 {
+            margin: 0;
+        }
+
+        .menu-bar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .menu-bar .buttons button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .form-container {
+            width: 45%;
+        }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-bar">
+        <h1>Título</h1>
+        <div class="buttons">
+            <button>Cargar Archivo</button>
+            <button>Peticiones</button>
+            <button>Ayuda</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <form method="post" action="{% url 'enviando' %}">
+                <h2>Formulario 1</h2>
+                {% csrf_token %}
+                <textarea name="input"></textarea>
+                <button>Enviar</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <h2>Formulario 2</h2>
+            <form method="post">
+                {% csrf_token %}
+                {% if datosProcesaods %}
+                <textarea>{{datosProcesaods}}</textarea>
+                {% else %}
+                <textarea></textarea>
+                {% endif %}
+                <button>Recetiar windows</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
