@@ -1,22 +1,5 @@
-"""
-URL configuration for proyect3 project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from Miappli import views
 
 urlpatterns = [
@@ -25,4 +8,16 @@ urlpatterns = [
     path("enviar/", views.enviando, name="enviando"),
     path("ayuda/", views.ayuda, name="ayuda"),
     path("cargar_archivo/", views.cargar_archivo_XML, name="cargar_archivo"),
+    path("peticiones/", views.peticiones, name="peticiones"),
+    path("consultar_datos/", views.consultar_datos, name="consultar_datos"),
+    path(
+        "resumen_clasificacion_fecha/",
+        views.resumen_clasificacion_fecha,
+        name="resumen_clasificacion_fecha",
+    ),
+    path(
+        "resumen_rango_fechas/", views.resumen_rango_fechas, name="resumen_rango_fechas"
+    ),
+    path("reporte_pdf/", views.reporte_pdf, name="reporte_pdf"),
+    path("prueba_mensaje/", views.prueba_mensaje, name="prueba_mensaje"),
 ]

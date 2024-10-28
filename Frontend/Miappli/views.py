@@ -42,3 +42,32 @@ def cargar_archivo_XML(request):
         else:
             return HttpResponse("Solo se permiten archivos con extensión .xml")
     return render(request, "cargar_archivo.html")
+
+
+def peticiones(request):
+    return render(request, "peticiones.html")
+
+
+def consultar_datos(request):
+    # Implementar la lógica para consultar datos
+    return HttpResponse("Consultar Datos")
+
+
+def resumen_clasificacion_fecha(request):
+    # Implementar la lógica para resumen de clasificación por fecha
+    return HttpResponse("Resumen de clasificación por fecha")
+
+
+def resumen_rango_fechas(request):
+    # Implementar la lógica para resumen por rango de fechas
+    return HttpResponse("Resumen por rango de fechas")
+
+
+def reporte_pdf(request):
+    # Implementar la lógica para generar reporte en PDF
+    return HttpResponse("Reporte en PDF")
+
+
+def prueba_mensaje(request):
+    # Implementar la lógica para prueba de mensaje
+    return HttpResponse("Prueba de mensaje")
