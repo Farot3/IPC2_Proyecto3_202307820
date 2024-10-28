@@ -21,6 +21,8 @@ from Miappli import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home),
+    path("", views.home, name="home"),
     path("enviar/", views.enviando, name="enviando"),
+    path("ayuda/", views.ayuda, name="ayuda"),
+    path("cargar_archivo/", views.cargar_archivo_XML, name="cargar_archivo"),
 ]

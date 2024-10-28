@@ -73,9 +73,9 @@
     <div class="menu-bar">
         <h1>Título</h1>
         <div class="buttons">
-            <button>Cargar Archivo</button>
+            <button onclick="window.location.href='{% url 'cargar_archivo' %}'">Cargar Archivo</button>
             <button>Peticiones</button>
-            <button>Ayuda</button>
+            <button onclick="window.location.href='{% url 'ayuda' %}'">Ayuda</button>
         </div>
     </div>
     <div class="container">
@@ -83,7 +83,7 @@
             <form method="post" action="{% url 'enviando' %}">
                 <h2>Formulario 1</h2>
                 {% csrf_token %}
-                <textarea name="input"></textarea>
+                <textarea name="input">{% if file_content %}{{ file_content }}{% endif %}</textarea>
                 <button>Enviar</button>
             </form>
         </div>
@@ -92,7 +92,7 @@
             <form method="post">
                 {% csrf_token %}
                 {% if datosProcesaods %}
-                <textarea>{{datosProcesaods}}</textarea>
+                <textarea>{{ datosProcesaods }}</textarea>
                 {% else %}
                 <textarea></textarea>
                 {% endif %}
