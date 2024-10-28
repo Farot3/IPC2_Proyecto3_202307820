@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import requests
 from django.core.files.storage import FileSystemStorage
+from django.contrib import messages
 
 
 # Create your views here.
@@ -15,10 +16,22 @@ def enviando(request):
         urlflask_o_algosimilar = "http://127.0.0.1:5000/procesar"
         response = requests.post(urlflask_o_algosimilar, data={"input": input})
         if response.status_code == 200:
-            recibir = response.json().get("datosProcesaods")
-            return render(request, "index.html", {"datosProcesaods": recibir})
+            xml_response = response.text
+            return render(request, "index.html", {"datosProcesaods": xml_response})
         else:
             return HttpResponse("Error al enviar los datos")
+    return render(request, "index.html")
+
+
+def reset(request):
+    if request.method == "POST":
+        urlflask_o_algosimilar = "http://127.0.0.1:5000/reset"
+        response = requests.post(urlflask_o_algosimilar)
+        if response.status_code == 200:
+            messages.success(request, "Base de datos restablecida al estado inicial")
+        else:
+            messages.error(request, "Error al restablecer la base de datos")
+        return redirect("home")
     return render(request, "index.html")
 
 
@@ -32,11 +45,10 @@ def cargar_archivo_XML(request):
         if archivo.name.endswith(".xml"):
             fs = FileSystemStorage()
             filename = fs.save(archivo.name, archivo)
-            uploaded_file_url = fs.url(filename)
 
-            # Leer el contenido del archivo
-            with fs.open(filename, "r") as file:
-                file_content = file.read()
+            # Leer el contenido del archivo como bytes y luego decodificarlo a una cadena usando UTF-8
+            with fs.open(filename, "rb") as file:
+                file_content = file.read().decode("utf-8")
 
             return render(request, "index.html", {"file_content": file_content})
         else:
