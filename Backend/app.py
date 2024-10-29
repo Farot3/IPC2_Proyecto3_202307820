@@ -110,19 +110,12 @@ def prueba_mensaje():
         sentimiento_analizado_elem = ET.SubElement(respuesta, "sentimiento_analizado")
         sentimiento_analizado_elem.text = sentimiento_analizado
 
-        # Utilizar prettify_xml para formatear la salida
-        respuesta_pretty = prettify_xml(respuesta)
-        return Response(respuesta_pretty, mimetype="application/xml")
+        return Response(ET.tostring(respuesta, encoding="utf-8"), mimetype="application/xml")
     except ET.ParseError:
         return jsonify({"error": "Error al parsear el mensaje XML."}), 400
     except Exception as e:
         return jsonify({"error": f"Error al procesar el mensaje: {str(e)}"}), 500
 
-def prettify_xml(elem):
-    """Return a pretty-printed XML string for the Element."""
-    rough_string = ET.tostring(elem, encoding="utf-8")
-    reparsed = minidom.parseString(rough_string)
-    return reparsed.toprettyxml(indent="    ")
 
 @app.route("/reporte_pdf", methods=["GET"])
 def reporte_pdf():
@@ -390,6 +383,12 @@ def leer_archivo_entrada(archivo):
         return {"error": "Error al parsear el archivo XML."}
     except Exception as e:
         return {"error": f"Error al procesar el archivo: {str(e)}"}
+
+def prettify_xml(elem):
+    """Return a pretty-printed XML string for the Element."""
+    rough_string = ET.tostring(elem, encoding="utf-8")
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(indent="    ")
 
 def generar_xml(data):
     root = ET.Element("lista_respuestas")
