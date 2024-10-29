@@ -391,12 +391,6 @@ def leer_archivo_entrada(archivo):
     except Exception as e:
         return {"error": f"Error al procesar el archivo: {str(e)}"}
 
-def prettify_xml(elem):
-    """Return a pretty-printed XML string for the Element."""
-    rough_string = ET.tostring(elem, encoding="utf-8")
-    reparsed = minidom.parseString(rough_string)
-    return reparsed.toprettyxml(indent="    ")
-
 def generar_xml(data):
     root = ET.Element("lista_respuestas")
 
