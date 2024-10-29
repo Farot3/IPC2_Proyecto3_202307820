@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen de Clasificación por Fecha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #555;
+        }
+
+        .chart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Resumen de Clasificación por Fecha</h1>
+        <form method="post" action="{% url 'resumen_clasificacion_fecha' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fecha">Seleccionar Fecha:</label>
+                <select id="fecha" name="fecha">
+                    {% for fecha in fechas %}
+                    <option value="{{ fecha }}">{{ fecha }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="empresa">Seleccionar Empresa:</label>
+                <select id="empresa" name="empresa">
+                    <option value="todas">Todas las Empresas</option>
+                    {% for empresa in empresas %}
+                    <option value="{{ empresa }}">{{ empresa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Generar Resumen</button>
+            </div>
+        </form>
+        <div class="chart">
+            {% if resumen %}
+            <h2>Resumen para {{ fecha_seleccionada }} y {{ empresa_seleccionada }}</h2>
+            <p>Total de Mensajes: {{ resumen.total }}</p>
+            <p>Mensajes Positivos: {{ resumen.positivos }}</p>
+            <p>Mensajes Negativos: {{ resumen.negativos }}</p>
+            <p>Mensajes Neutros: {{ resumen.neutros }}</p>
+            <!-- Aquí puedes agregar un gráfico usando una biblioteca como Chart.js -->
+            {% endif %}
+        </div>
+        <div class="back-button">
+            <button onclick="window.location.href='/'">Regresar al Inicio</button>
+        </div>
+    </div>
+</body>
+
+</html>

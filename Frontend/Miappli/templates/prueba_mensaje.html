@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Mensaje</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-container .input-section,
+        .form-container .output-section {
+            width: 48%;
+        }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #555;
+        }
+
+        .output textarea {
+            width: 100%;
+            height: 350px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Prueba de Mensaje</h1>
+        <div class="form-container">
+            <div class="input-section">
+                <form method="post" action="{% url 'prueba_mensaje' %}">
+                    <h2>Ingrese el mensaje en formato XML</h2>
+                    {% csrf_token %}
+                    <textarea name="mensaje"></textarea>
+                    <button>Analizar Mensaje</button>
+                </form>
+            </div>
+            {% if respuesta %}
+            <div class="output-section">
+                <h2>Respuesta</h2>
+                <textarea readonly>{{ respuesta }}</textarea>
+                <a href="{% url 'home' %}" class="back-button">Regresar al Home</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
